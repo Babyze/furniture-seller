@@ -1,0 +1,116 @@
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 0.375rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.button:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(var(--primary-500-rgb), 0.1);
+}
+
+/* Variants */
+.button--primary {
+  background-color: var(--primary-500);
+  color: white;
+}
+
+.button--primary:hover:not(:disabled) {
+  background-color: var(--primary-600);
+}
+
+.button--secondary {
+  background-color: var(--secondary-500);
+  color: white;
+}
+
+.button--secondary:hover:not(:disabled) {
+  background-color: var(--secondary-600);
+}
+
+.button--outline {
+  background-color: white;
+  border: 1px solid var(--border-primary);
+  color: var(--text-primary);
+}
+
+.button--outline:hover:not(:disabled) {
+  background-color: var(--bg-secondary);
+}
+
+.button--ghost {
+  background-color: transparent;
+  color: var(--text-primary);
+}
+
+.button--ghost:hover:not(:disabled) {
+  background-color: var(--bg-secondary);
+}
+
+/* Sizes */
+.button--sm {
+  padding: 0.375rem 0.75rem;
+  font-size: 0.875rem;
+}
+
+.button--md {
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+}
+
+.button--lg {
+  padding: 0.75rem 1.5rem;
+  font-size: 1.125rem;
+}
+
+/* Full width */
+.button--full-width {
+  width: 100%;
+}
+
+/* Icon */
+.button__icon {
+  margin-right: 0.5rem;
+  font-size: 1.25em;
+}
+
+/* Loading spinner */
+.button--loading {
+  color: transparent;
+}
+
+.button__spinner {
+  position: absolute;
+  width: 1em;
+  height: 1em;
+  border: 2px solid currentColor;
+  border-radius: 50%;
+  border-right-color: transparent;
+  animation: spin 0.75s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Content */
+.button__content {
+  display: inline-flex;
+  align-items: center;
+}
