@@ -1,13 +1,8 @@
-import { FiSearch } from 'react-icons/fi';
-import './App.css';
-import Button from './components/ui/Button';
+import { RouterProvider } from 'react-router';
+import { router } from '@src/routes';
 
 function App() {
-  return (
-    <>
-      <Button icon={<FiSearch />}>Click me</Button>
-    </>
-  );
+  return <RouterProvider router={router} />;
 }
 
 export default App;
