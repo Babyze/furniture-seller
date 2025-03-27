@@ -6,6 +6,7 @@ interface EnvConfig {
   auth: {
     tokenKey: string;
     refreshTokenKey: string;
+    userKey: string;
   };
 }
 
@@ -17,6 +18,7 @@ const envConfig: EnvConfig = {
   auth: {
     tokenKey: import.meta.env.VITE_TOKEN_KEY ?? '',
     refreshTokenKey: import.meta.env.VITE_REFRESH_TOKEN_KEY ?? '',
+    userKey: import.meta.env.VITE_USER_KEY ?? '',
   },
 };
 

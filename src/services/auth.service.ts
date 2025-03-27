@@ -17,7 +17,10 @@ class AuthService {
 
   async login(data: LoginRequest): Promise<LoginResponse> {
     try {
-      const response = await api.post<LoginResponse>(API_ROUTES.AUTH.LOGIN, data);
+      const response = await api.public.post<LoginResponse>(API_ROUTES.AUTH.LOGIN, data);
+      localStorage.setItem(envConfig.auth.tokenKey, response.accessToken);
+      localStorage.setItem(envConfig.auth.refreshTokenKey, response.refreshToken);
+      localStorage.setItem(envConfig.auth.userKey, JSON.stringify(response.user));
       return response;
     } catch (error) {
       console.error('Login error:', error);
@@ -31,28 +34,9 @@ class AuthService {
     } catch (error) {
       console.error('Logout error:', error);
     } finally {
-      // Clear local storage
       localStorage.removeItem(envConfig.auth.tokenKey);
       localStorage.removeItem(envConfig.auth.refreshTokenKey);
-      localStorage.removeItem('user');
-    }
-  }
-
-  async refreshToken(): Promise<string> {
-    try {
-      const refreshToken = localStorage.getItem(envConfig.auth.refreshTokenKey);
-      if (!refreshToken) {
-        throw new Error('No refresh token found');
-      }
-
-      const response = await api.post<{ token: string }>(API_ROUTES.AUTH.REFRESH_TOKEN, {
-        refreshToken,
-      });
-
-      return response.token;
-    } catch (error) {
-      console.error('Refresh token error:', error);
-      throw error;
+      localStorage.removeItem(envConfig.auth.userKey);
     }
   }
 

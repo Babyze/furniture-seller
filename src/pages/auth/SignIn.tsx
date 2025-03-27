@@ -73,6 +73,7 @@ const SignIn = () => {
               value={formData.password}
               onChange={handleChange}
               placeholder="Enter your password"
+              autoComplete="on"
               required
             />
           </div>

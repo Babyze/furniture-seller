@@ -6,8 +6,7 @@ export interface SignInFormData {
 export interface User {
   id: string;
   email: string;
-  name: string;
-  role: string;
+  fullName: string;
 }
 
 export interface LoginRequest {
@@ -17,13 +16,16 @@ export interface LoginRequest {
 }
 
 export interface LoginResponse {
-  token: string;
-  refreshToken?: string;
+  accessToken: string;
+  refreshToken: string;
   user: User;
 }
 
-export interface AuthState {
-  user: User | null;
-  isLoading: boolean;
-  isAuthenticated: boolean;
+export interface RefreshTokenRequest {
+  refreshToken: string;
+}
+
+export interface RefreshTokenResponse {
+  accessToken: string;
+  refreshToken: string;
 }
