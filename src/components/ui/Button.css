@@ -86,14 +86,10 @@
 }
 
 /* Loading spinner */
-.button--loading {
-  color: transparent;
-}
-
 .button__spinner {
-  position: absolute;
   width: 1em;
   height: 1em;
+  margin-left: 0.5em;
   border: 2px solid currentColor;
   border-radius: 50%;
   border-right-color: transparent;

@@ -6,7 +6,7 @@
 .dashboard-layout__sidebar {
   width: 250px;
   background-color: white;
-  border-right: 1px solid var(--color-gray-200);
+  border-right: 1px solid var(--gray-200);
   position: fixed;
   top: 0;
   left: 0;
@@ -24,7 +24,7 @@
 .dashboard-layout__header {
   height: var(--header-height);
   background-color: white;
-  border-bottom: 1px solid var(--color-gray-200);
+  border-bottom: 1px solid var(--gray-200);
   position: sticky;
   top: 0;
   z-index: var(--z-sticky);
@@ -33,7 +33,7 @@
 .dashboard-layout__content {
   flex: 1;
   padding: var(--spacing-6);
-  background-color: var(--color-gray-50);
+  background-color: var(--gray-50);
 }
 
 /* Responsive */
