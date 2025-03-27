@@ -1,14 +1,16 @@
-import React, { useState, useEffect } from 'react';
 import { authService } from '@src/services/auth.service';
+import React, { useEffect, useState } from 'react';
 
-import { User, LoginRequest } from '@src/models/auth.model';
+import { Loading } from '@src/components/layouts/Loading';
 import { AuthContext } from '@src/contexts/AuthContext.context';
+import { LoginRequest, User } from '@src/models/auth.model';
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    setIsLoading(true);
     const user = authService.getCurrentUser();
     if (user) {
       setUser(user);
@@ -39,6 +41,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const getUserAccessToken = () => {
     return authService.getUserAccessToken();
   };
+
+  if (isLoading) {
+    return <Loading />;
+  }
 
   return (
     <AuthContext.Provider

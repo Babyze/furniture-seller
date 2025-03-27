@@ -6,8 +6,8 @@ import AuthLayout from '@src/components/layouts/AuthLayout';
 import DashboardLayout from '@src/components/layouts/DashboardLayout';
 
 // Route protection
-import PrivateRoute from '@src/components/routes/PrivateRoute';
-import PublicRoute from '@src/components/routes/PublicRoute';
+import PrivateRoute from '@src/routes/PrivateRoute';
+import PublicRoute from '@src/routes/PublicRoute';
 
 // Auth pages
 import SignIn from '@src/pages/auth/SignIn';
