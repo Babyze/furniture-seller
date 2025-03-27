@@ -1,16 +1,10 @@
 .auth-layout {
-  min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: var(--color-gray-50);
 }
 
 .auth-layout__content {
   width: 100%;
-  max-width: 400px;
-  padding: var(--spacing-4);
   background-color: white;
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-md);
 }

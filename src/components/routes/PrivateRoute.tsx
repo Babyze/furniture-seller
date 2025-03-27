@@ -1,5 +1,6 @@
 import { Navigate, useLocation } from 'react-router';
 import { ROUTES } from '@src/constants/routes';
+import { useAuth } from '@src/hooks/useAuth';
 
 interface PrivateRouteProps {
   children: React.ReactNode;
@@ -7,9 +8,9 @@ interface PrivateRouteProps {
 
 const PrivateRoute = ({ children }: PrivateRouteProps) => {
   const location = useLocation();
-  const isAuthenticated = localStorage.getItem('token');
+  const auth = useAuth();
 
-  if (!isAuthenticated) {
+  if (!auth.isAuthenticated) {
     return <Navigate to={ROUTES.AUTH.SIGN_IN} state={{ from: location }} replace />;
   }
 

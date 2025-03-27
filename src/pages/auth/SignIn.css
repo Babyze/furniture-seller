@@ -1,0 +1,90 @@
+.sign-in {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--gray-50);
+  padding: var(--spacing-4);
+}
+
+.sign-in__container {
+  width: 100%;
+  max-width: 400px;
+  background-color: white;
+  padding: var(--spacing-8);
+  border-radius: 8px;
+  box-shadow:
+    0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.sign-in__header {
+  text-align: center;
+  margin-bottom: var(--spacing-8);
+}
+
+.sign-in__header h1 {
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--color-gray-900);
+  margin-bottom: var(--spacing-2);
+}
+
+.sign-in__header p {
+  color: var(--gray-600);
+  font-size: 14px;
+}
+
+.sign-in__form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-1);
+}
+
+.form-group label {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--gray-700);
+}
+
+.form-group input {
+  padding: var(--spacing-3);
+  border: 1px solid var(--gray-300);
+  border-radius: 6px;
+  font-size: 14px;
+  transition: border-color 0.2s;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: var(--primary-500);
+  box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.1);
+}
+
+.sign-in__button {
+  background-color: var(--color-primary);
+  color: white;
+  padding: var(--spacing-3);
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  margin-top: var(--spacing-2);
+}
+
+.sign-in__button:hover {
+  background-color: var(--color-primary-hover);
+}
+
+.sign-in__button:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.1);
+}

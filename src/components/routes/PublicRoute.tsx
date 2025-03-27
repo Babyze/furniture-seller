@@ -1,14 +1,15 @@
 import { Navigate } from 'react-router';
 import { ROUTES } from '@src/constants/routes';
+import { useAuth } from '@src/hooks/useAuth';
 
 interface PublicRouteProps {
   children: React.ReactNode;
 }
 
 const PublicRoute = ({ children }: PublicRouteProps) => {
-  const isAuthenticated = localStorage.getItem('token');
+  const auth = useAuth();
 
-  if (isAuthenticated) {
+  if (auth.isAuthenticated) {
     return <Navigate to={ROUTES.DASHBOARD.ROOT} replace />;
   }
 
