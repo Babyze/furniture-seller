@@ -6,11 +6,11 @@ export const ROUTES = {
 
   // Dashboard routes
   DASHBOARD: {
-    ROOT: '/dashboard',
-    PRODUCTS: '/dashboard/products',
-    ORDERS: '/dashboard/orders',
-    CUSTOMERS: '/dashboard/customers',
-    SETTINGS: '/dashboard/settings',
+    ROOT: '/',
+    PRODUCTS: '/products',
+    ORDERS: '/orders',
+    CUSTOMERS: '/customers',
+    SETTINGS: '/settings',
   },
 
   // All others

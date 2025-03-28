@@ -58,6 +58,7 @@
   /* Component Colors */
   --button-primary: var(--primary-500);
   --button-primary-hover: var(--primary-600);
+  --button-primary-text-hover: var(--gray-50);
   --button-secondary: var(--secondary-500);
   --button-secondary-hover: var(--secondary-600);
 }
