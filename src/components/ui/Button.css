@@ -41,12 +41,13 @@
 
 .button--outline {
   background-color: white;
-  border: 1px solid var(--border-primary);
-  color: var(--text-primary);
+  border: 1px solid var(--button-primary);
+  color: var(--button-primary);
 }
 
 .button--outline:hover:not(:disabled) {
-  background-color: var(--bg-secondary);
+  background-color: var(--button-primary-hover);
+  color: var(--button-primary-text-hover);
 }
 
 .button--ghost {
@@ -56,6 +57,7 @@
 
 .button--ghost:hover:not(:disabled) {
   background-color: var(--bg-secondary);
+  color: var(--button-primary-hover);
 }
 
 /* Sizes */

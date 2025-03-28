@@ -1,5 +1,5 @@
 :root {
-  --sidebar-width: 64px;
+  --sidebar-width: 70px;
   --header-height: 64px;
   --menu-item-size: 40px;
 }
@@ -12,7 +12,7 @@
   position: fixed;
   left: 0;
   top: 0;
-  z-index: var(--z-drawer);
+  z-index: 999;
   display: flex;
   flex-direction: column;
 }
@@ -69,8 +69,9 @@
 
 .menu-item:hover,
 .menu-item.is-active {
-  background-color: rgba(255, 255, 255, 0.1);
-  color: white;
+  background-color: var(--bg-primary);
+  border-radius: 5px;
+  color: var(--primary-500);
 }
 
 .menu-item__icon {
@@ -91,7 +92,7 @@
     display: block;
     position: fixed;
     inset: 0;
-    z-index: var(--z-drawer);
+    z-index: 999;
   }
 
   .mobile-menu a {
@@ -132,7 +133,7 @@
     position: fixed;
     inset: var(--header-height) 0 0 0;
     background-color: rgba(0, 0, 0, 0.5);
-    z-index: calc(var(--z-drawer) - 1);
+    z-index: calc(999 - 1);
   }
 
   .mobile-menu__content {
@@ -141,7 +142,7 @@
     background-color: var(--primary-500);
     padding: var(--spacing-4);
     overflow-y: auto;
-    z-index: var(--z-drawer);
+    z-index: 999;
   }
 
   .mobile-menu__content ul {
