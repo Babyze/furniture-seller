@@ -19,6 +19,7 @@ import Dashboard from '@src/pages/dashboard/Dashboard';
 import NotFound from '@src/pages/error/NotFound';
 import Product from '@src/pages/products/Product';
 import CreateProduct from '@src/pages/products/create-product/CreateProduct';
+import UpdateProduct from '@src/pages/products/update-product/UpdatePRoduct';
 
 export const router = createBrowserRouter([
   {
@@ -58,6 +59,10 @@ export const router = createBrowserRouter([
       {
         path: ROUTES.DASHBOARD.CREATE_PRODUCT,
         element: <CreateProduct />,
+      },
+      {
+        path: ROUTES.DASHBOARD.UPDATE_PRODUCT,
+        element: <UpdateProduct />,
       },
     ],
   },

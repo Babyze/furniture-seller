@@ -9,6 +9,7 @@ export const ROUTES = {
     ROOT: '/',
     PRODUCTS: '/products',
     CREATE_PRODUCT: '/products/create',
+    UPDATE_PRODUCT: `/products/:id`,
     ORDERS: '/orders',
     CUSTOMERS: '/customers',
     SETTINGS: '/settings',

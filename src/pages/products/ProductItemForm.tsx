@@ -1,19 +1,18 @@
 import Button from '@src/components/ui/Button';
 import Input from '@src/components/ui/Input';
+import { Loading } from '@src/components/ui/Loading';
+import Select from '@src/components/ui/Select';
 import Textarea from '@src/components/ui/Textarea';
 import { ROUTES } from '@src/constants/routes';
 import { CategoryArea } from '@src/models/category-area.model';
 import { Category } from '@src/models/category.model';
-import { CreateProduct } from '@src/models/product.model';
+import { Product, SPU } from '@src/models/product.model';
 import { categoryAreaService } from '@src/services/category-area.service';
 import { categoryService } from '@src/services/category.service';
 import { productService } from '@src/services/product.service';
 import { useEffect, useRef, useState } from 'react';
-import { IoCloudUpload } from 'react-icons/io5';
 import { useNavigate } from 'react-router';
 import './ProductItemForm.css';
-import { Loading } from '@src/components/ui/Loading';
-import Select from '@src/components/ui/Select';
 
 // Basic Info Types & Component
 interface BasicInfo {
@@ -22,7 +21,7 @@ interface BasicInfo {
   measurements: string;
   categoryId: number;
   categoryAreaId: number;
-  image?: File;
+  image?: File | string;
 }
 
 interface BasicInfoFormProps {
@@ -32,17 +31,15 @@ interface BasicInfoFormProps {
   categoryAreas: CategoryArea[];
 }
 
-const DEFAULT_BASIC_INFO: BasicInfo = {
-  name: '',
-  description: '',
-  measurements: '',
-  categoryId: 0,
-  categoryAreaId: 0,
-};
-
 const BasicInfoForm = ({ value, onChange, categories, categoryAreas }: BasicInfoFormProps) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [previewUrl, setPreviewUrl] = useState<string>();
+
+  useEffect(() => {
+    if (value.image) {
+      setPreviewUrl(value.image as string);
+    }
+  }, [value.image]);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>,
@@ -52,10 +49,6 @@ const BasicInfoForm = ({ value, onChange, categories, categoryAreas }: BasicInfo
       ...value,
       [name]: inputValue,
     });
-  };
-
-  const handleImageClick = () => {
-    fileInputRef.current?.click();
   };
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -120,13 +113,7 @@ const BasicInfoForm = ({ value, onChange, categories, categoryAreas }: BasicInfo
             accept="image/*"
             className="hidden"
           />
-          {!previewUrl ? (
-            <div className="image-upload" onClick={handleImageClick}>
-              <IoCloudUpload size={40} className="image-upload__icon mx-auto" />
-              <div className="image-upload__text">Click to upload image</div>
-              <div className="image-upload__hint">PNG, JPG up to 5MB</div>
-            </div>
-          ) : (
+          {previewUrl && (
             <div className="image-upload-preview">
               <div className="image-preview">
                 <img src={previewUrl} alt="Preview" />
@@ -142,62 +129,62 @@ const BasicInfoForm = ({ value, onChange, categories, categoryAreas }: BasicInfo
             </div>
           )}
         </div>
-      </div>
 
-      {/* Categorization */}
-      <div className="form-section">
-        <h2 className="form-section__title">Categorization</h2>
-        <div className="form-group">
-          <label htmlFor="categoryId">Category</label>
-          <Select
-            id="categoryId"
-            name="categoryId"
-            value={value.categoryId.toString()}
-            onChange={handleChange}
-            required
-          >
-            <option value="">Select a category</option>
-            {categories.map((category) => (
-              <option key={category.id} value={category.id}>
-                {category.name}
-              </option>
-            ))}
-          </Select>
+        {/* Categorization */}
+        <div className="form-section">
+          <h2 className="form-section__title">Categorization</h2>
+          <div className="form-group">
+            <label htmlFor="categoryId">Category</label>
+            <Select
+              id="categoryId"
+              name="categoryId"
+              value={value.categoryId.toString()}
+              onChange={handleChange}
+              required
+            >
+              <option value="">Select a category</option>
+              {categories.map((category) => (
+                <option key={category.id} value={category.id}>
+                  {category.name}
+                </option>
+              ))}
+            </Select>
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="categoryAreaId">Category Area</label>
+            <Select
+              id="categoryAreaId"
+              name="categoryAreaId"
+              value={value.categoryAreaId.toString()}
+              onChange={handleChange}
+              required
+            >
+              <option value="">Select a category area</option>
+              {categoryAreas.map((area) => (
+                <option key={area.id} value={area.id}>
+                  {area.name}
+                </option>
+              ))}
+            </Select>
+          </div>
         </div>
 
-        <div className="form-group">
-          <label htmlFor="categoryAreaId">Category Area</label>
-          <Select
-            id="categoryAreaId"
-            name="categoryAreaId"
-            value={value.categoryAreaId.toString()}
-            onChange={handleChange}
-            required
-          >
-            <option value="">Select a category area</option>
-            {categoryAreas.map((area) => (
-              <option key={area.id} value={area.id}>
-                {area.name}
-              </option>
-            ))}
-          </Select>
-        </div>
-      </div>
-
-      {/* Specifications */}
-      <div className="form-section">
-        <h2 className="form-section__title">Specifications</h2>
-        <div className="form-group">
-          <label htmlFor="measurements">Measurements</label>
-          <Input
-            type="text"
-            id="measurements"
-            name="measurements"
-            value={value.measurements}
-            onChange={handleChange}
-            required
-            placeholder="e.g. 17 1/2x20 5/8"
-          />
+        {/* Specifications */}
+        <div className="form-section">
+          <h2 className="form-section__title">Specifications</h2>
+          <div className="form-group">
+            <label htmlFor="measurements">Measurements</label>
+            <Input
+              type="text"
+              id="measurements"
+              name="measurements"
+              value={value.measurements}
+              onChange={handleChange}
+              required
+              placeholder="e.g. 17 1/2x20 5/8"
+            />
+          </div>
         </div>
       </div>
     </>
@@ -206,6 +193,7 @@ const BasicInfoForm = ({ value, onChange, categories, categoryAreas }: BasicInfo
 
 // Variants Types & Components
 interface Variant {
+  id?: number;
   name: string;
   price: number;
   quantity: number;
@@ -339,13 +327,34 @@ const VariantsForm = ({ variants, onChange }: VariantsFormProps) => {
   );
 };
 
-// Main Form Component
-const ProductItemForm = () => {
+interface ProductItemFormProps {
+  product?: Product;
+  spus?: SPU[];
+  isUpdate?: boolean;
+}
+
+const ProductItemForm = ({ product, spus, isUpdate }: ProductItemFormProps) => {
   const navigate = useNavigate();
   const [categories, setCategories] = useState<Category[]>([]);
   const [categoryAreas, setCategoryAreas] = useState<CategoryArea[]>([]);
-  const [basicInfo, setBasicInfo] = useState<BasicInfo>(DEFAULT_BASIC_INFO);
-  const [variants, setVariants] = useState<Variant[]>([DEFAULT_VARIANT]);
+
+  const [basicInfo, setBasicInfo] = useState<BasicInfo>({
+    name: product?.name ?? '',
+    description: product?.description ?? '',
+    measurements: product?.measurements ?? '',
+    categoryId: product?.categoryId ?? 0,
+    categoryAreaId: product?.categoryAreaId ?? 0,
+    image: product?.imageUrl ?? '',
+  });
+
+  const [variants, setVariants] = useState<Variant[]>(
+    spus?.map((spu) => ({
+      id: spu.id,
+      name: spu.name,
+      price: spu.price,
+      quantity: spu.quantity,
+    })) ?? [DEFAULT_VARIANT],
+  );
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
@@ -366,32 +375,33 @@ const ProductItemForm = () => {
     if (isSubmitting) return;
 
     setIsSubmitting(true);
-
     try {
       const { image, ...productData } = basicInfo;
-      const createProductData: CreateProduct = {
+      const productPayload = {
         ...productData,
         spus: variants.map((variant) => ({
+          id: variant.id,
           name: variant.name,
-          sku: {
-            price: variant.price,
-            quantity: variant.quantity,
-          },
+          price: variant.price,
+          quantity: variant.quantity,
         })),
       };
 
-      const createdProduct = await productService.createProduct(createProductData);
-
-      if (image) {
-        await productService.uploadProductImage(createdProduct.id, image);
+      if (isUpdate && product?.id) {
+        await productService.updateProduct(product.id, productPayload);
+      } else {
+        const createdProduct = await productService.createProduct(productPayload);
+        if (image instanceof File) {
+          await productService.uploadProductImage(createdProduct.id, image);
+        }
       }
 
       navigate(ROUTES.DASHBOARD.PRODUCTS);
     } catch (error) {
-      console.error('Failed to create product:', error);
+      alert(`Failed to ${isUpdate ? 'update' : 'create'} product: ${error}`);
     } finally {
       setIsSubmitting(false);
-      alert('Product created successfully');
+      alert(`Product ${isUpdate ? 'updated' : 'created'} successfully`);
     }
   };
 
@@ -399,7 +409,7 @@ const ProductItemForm = () => {
     <div className="product-form">
       {isSubmitting && <Loading />}
       <div className="product-form__header">
-        <h1>Create Product</h1>
+        <h1>{isUpdate ? 'Update' : 'Create'} Product</h1>
         <Button variant="outline" onClick={() => navigate(ROUTES.DASHBOARD.PRODUCTS)}>
           Back to Products
         </Button>
@@ -415,7 +425,7 @@ const ProductItemForm = () => {
         <VariantsForm variants={variants} onChange={setVariants} />
         <div className="form-actions">
           <Button type="submit" variant="primary">
-            Create Product
+            {isUpdate ? 'Update' : 'Create'} Product
           </Button>
         </div>
       </form>

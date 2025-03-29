@@ -72,59 +72,6 @@
   gap: 1rem;
 }
 
-/* Image upload */
-.image-upload {
-  border: 2px dashed var(--gray-200);
-  border-radius: var(--border-radius);
-  padding: 2rem;
-  text-align: center;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.image-upload:hover {
-  border-color: var(--gray-400);
-  background: var(--gray-50);
-}
-
-.image-upload__icon {
-  color: var(--gray-400);
-  margin-bottom: 1rem;
-}
-
-.image-upload__text {
-  color: var(--gray-500);
-  margin-bottom: 0.5rem;
-}
-
-.image-upload__hint {
-  color: var(--gray-400);
-  font-size: var(--text-sm);
-}
-
-.image-upload-preview {
-  display: flex;
-  align-items: flex-start;
-  gap: 1rem;
-}
-
-.image-preview {
-  width: 200px;
-  height: 200px;
-  border-radius: var(--border-radius);
-  overflow: hidden;
-}
-
-.image-preview img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.image-preview__remove {
-  flex-shrink: 0;
-}
-
 /* Variant section */
 .spu-section {
   background: var(--gray-50);

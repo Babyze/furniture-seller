@@ -1,19 +1,15 @@
 import { Pagination } from './pagination.model';
 
-export interface Attribute {
-  attributeName: string;
-  attributeValue: string;
-}
-
 export interface SKU {
   price: number;
   quantity: number;
 }
 
 export interface SPU {
+  id?: number;
   name: string;
-  attributes: Attribute[];
-  sku: SKU;
+  price: number;
+  quantity: number;
 }
 
 export interface Product {
@@ -29,11 +25,8 @@ export interface Product {
   stock: string;
   categoryName: string;
   categoryAreaName: string;
-}
-
-export interface CreateProductSPU {
-  name: string;
-  sku: SKU;
+  imageUrl?: string | null;
+  spus: SPU[];
 }
 
 export interface CreateProduct {
@@ -42,7 +35,7 @@ export interface CreateProduct {
   measurements: string;
   categoryId: number;
   categoryAreaId: number;
-  spus: CreateProductSPU[];
+  spus: SPU[];
 }
 
 export type ProductListResponse = Pagination<Product>;
