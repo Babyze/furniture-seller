@@ -13,6 +13,7 @@ import { productService } from '@src/services/product.service';
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router';
 import './ProductItemForm.css';
+import { IoCloudUpload } from 'react-icons/io5';
 
 // Basic Info Types & Component
 interface BasicInfo {
@@ -29,15 +30,28 @@ interface BasicInfoFormProps {
   onChange: (value: BasicInfo) => void;
   categories: Category[];
   categoryAreas: CategoryArea[];
+  onImageRemove: () => void;
 }
 
-const BasicInfoForm = ({ value, onChange, categories, categoryAreas }: BasicInfoFormProps) => {
+const BasicInfoForm = ({
+  value,
+  onChange,
+  categories,
+  categoryAreas,
+  onImageRemove,
+}: BasicInfoFormProps) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [previewUrl, setPreviewUrl] = useState<string>();
 
   useEffect(() => {
     if (value.image) {
-      setPreviewUrl(value.image as string);
+      if (typeof value.image === 'string') {
+        setPreviewUrl(value.image);
+      } else {
+        const objectUrl = URL.createObjectURL(value.image);
+        setPreviewUrl(objectUrl);
+        return () => URL.revokeObjectURL(objectUrl);
+      }
     }
   }, [value.image]);
 
@@ -51,6 +65,10 @@ const BasicInfoForm = ({ value, onChange, categories, categoryAreas }: BasicInfo
     });
   };
 
+  const handleImageClick = () => {
+    fileInputRef.current?.click();
+  };
+
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
@@ -58,11 +76,10 @@ const BasicInfoForm = ({ value, onChange, categories, categoryAreas }: BasicInfo
         ...value,
         image: file,
       });
-      setPreviewUrl(URL.createObjectURL(file));
     }
   };
 
-  const handleRemoveImage = () => {
+  const handleRemoveImage = async () => {
     onChange({
       ...value,
       image: undefined,
@@ -71,6 +88,7 @@ const BasicInfoForm = ({ value, onChange, categories, categoryAreas }: BasicInfo
     if (fileInputRef.current) {
       fileInputRef.current.value = '';
     }
+    onImageRemove();
   };
 
   return (
@@ -113,7 +131,13 @@ const BasicInfoForm = ({ value, onChange, categories, categoryAreas }: BasicInfo
             accept="image/*"
             className="hidden"
           />
-          {previewUrl && (
+          {!previewUrl ? (
+            <div className="image-upload" onClick={handleImageClick}>
+              <IoCloudUpload size={40} className="image-upload__icon mx-auto" />
+              <div className="image-upload__text">Click to upload image</div>
+              <div className="image-upload__hint">PNG, JPG up to 5MB</div>
+            </div>
+          ) : (
             <div className="image-upload-preview">
               <div className="image-preview">
                 <img src={previewUrl} alt="Preview" />
@@ -337,6 +361,7 @@ const ProductItemForm = ({ product, spus, isUpdate }: ProductItemFormProps) => {
   const navigate = useNavigate();
   const [categories, setCategories] = useState<Category[]>([]);
   const [categoryAreas, setCategoryAreas] = useState<CategoryArea[]>([]);
+  const [isDeleteImage, setIsDeleteImage] = useState(false);
 
   const [basicInfo, setBasicInfo] = useState<BasicInfo>({
     name: product?.name ?? '',
@@ -387,21 +412,33 @@ const ProductItemForm = ({ product, spus, isUpdate }: ProductItemFormProps) => {
         })),
       };
 
+      let productId = null;
       if (isUpdate && product?.id) {
+        if (isDeleteImage && product.imageUrl) {
+          await productService.deleteProductImage(product.id);
+        }
+
         await productService.updateProduct(product.id, productPayload);
+        productId = product.id;
       } else {
         const createdProduct = await productService.createProduct(productPayload);
-        if (image instanceof File) {
-          await productService.uploadProductImage(createdProduct.id, image);
-        }
+        productId = createdProduct.id;
       }
 
-      navigate(ROUTES.DASHBOARD.PRODUCTS);
+      if (image instanceof File) {
+        await productService.uploadProductImage(productId, image);
+      }
+
+      alert(`Product ${isUpdate ? 'updated' : 'created'} successfully`);
     } catch (error) {
-      alert(`Failed to ${isUpdate ? 'update' : 'create'} product: ${error}`);
+      console.error(`Failed to ${isUpdate ? 'update' : 'create'} product:`, error);
+      alert(`Failed to ${isUpdate ? 'update' : 'create'} product`);
     } finally {
       setIsSubmitting(false);
-      alert(`Product ${isUpdate ? 'updated' : 'created'} successfully`);
+    }
+
+    if (!isUpdate) {
+      navigate(ROUTES.DASHBOARD.PRODUCTS);
     }
   };
 
@@ -421,10 +458,11 @@ const ProductItemForm = ({ product, spus, isUpdate }: ProductItemFormProps) => {
           onChange={setBasicInfo}
           categories={categories}
           categoryAreas={categoryAreas}
+          onImageRemove={() => setIsDeleteImage(true)}
         />
         <VariantsForm variants={variants} onChange={setVariants} />
         <div className="form-actions">
-          <Button type="submit" variant="primary">
+          <Button type="submit" variant="primary" isLoading={isSubmitting}>
             {isUpdate ? 'Update' : 'Create'} Product
           </Button>
         </div>

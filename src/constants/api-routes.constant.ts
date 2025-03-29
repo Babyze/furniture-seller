@@ -13,6 +13,7 @@ export const API_ROUTES = {
     GET_IMAGE: (id: number) => `/seller/products/${id}/images`,
     UPLOAD_IMAGE: (id: number) => `/seller/products/${id}/images`,
     UPDATE: (id: number) => `/seller/products/${id}`,
+    DELETE_IMAGE: (id: number) => `/seller/products/${id}/images`,
   },
   CATEGORY: {
     LIST: '/seller/categories',

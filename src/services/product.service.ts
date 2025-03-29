@@ -57,6 +57,10 @@ class ProductService {
       },
     });
   }
+
+  async deleteProductImage(productId: number): Promise<void> {
+    await api.delete(API_ROUTES.PRODUCT.DELETE_IMAGE(productId));
+  }
 }
 
 export const productService = ProductService.getInstance();
