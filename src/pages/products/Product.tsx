@@ -107,13 +107,13 @@ const ProductPage = () => {
       key: 'createdDate',
       title: 'Created Date',
       width: '20%',
-      render: (value) => dayjs(value).format('DD/MM/YYYY'),
+      render: (value) => dayjs(value as string).format('DD/MM/YYYY'),
     },
     {
       key: 'updatedDate',
       title: 'Updated Date',
       width: '20%',
-      render: (value) => dayjs(value).format('DD/MM/YYYY'),
+      render: (value) => dayjs(value as string).format('DD/MM/YYYY'),
     },
     {
       key: 'actions',
