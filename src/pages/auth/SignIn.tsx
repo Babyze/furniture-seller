@@ -40,7 +40,6 @@ const SignIn = () => {
     } catch (error) {
       console.error('Login error:', error);
     } finally {
-      console.log('Finally');
       setIsSubmitting(false);
     }
   };
