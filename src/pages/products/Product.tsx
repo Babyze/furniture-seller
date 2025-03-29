@@ -1,7 +1,12 @@
 import Button from '@src/components/ui/Button';
-import Table, { Column, PaginationConfig } from '@src/components/ui/Table';
 import Filter, { FilterConfig } from '@src/components/ui/Filter';
+import Table, { Column, PaginationConfig } from '@src/components/ui/Table';
+import { ROUTES } from '@src/constants/routes';
+import { CategoryArea } from '@src/models/category-area.model';
+import { Category } from '@src/models/category.model';
 import { Product } from '@src/models/product.model';
+import { categoryAreaService } from '@src/services/category-area.service';
+import { categoryService } from '@src/services/category.service';
 import { productService } from '@src/services/product.service';
 import dayjs from 'dayjs';
 import { useCallback, useEffect, useState } from 'react';
@@ -9,10 +14,6 @@ import { FiEdit } from 'react-icons/fi';
 import { RiAddLine } from 'react-icons/ri';
 import { useNavigate } from 'react-router';
 import './product.css';
-import { categoryService } from '@src/services/category.service';
-import { Category } from '@src/models/category.model';
-import { CategoryArea } from '@src/models/category-area.model';
-import { categoryAreaService } from '@src/services/category-area.service';
 
 const ProductPage = () => {
   const navigate = useNavigate();
@@ -28,7 +29,7 @@ const ProductPage = () => {
   });
 
   const [currentPage, setCurrentPage] = useState(1);
-  const [pageSize, setPageSize] = useState(10);
+  const [pageSize, setPageSize] = useState(20);
 
   const fetchProducts = useCallback(
     async (page: number, size: number, filters?: Record<string, unknown>) => {
@@ -158,7 +159,7 @@ const ProductPage = () => {
         <Button
           variant="outline"
           size="sm"
-          onClick={() => navigate('/products/new')}
+          onClick={() => navigate(ROUTES.DASHBOARD.CREATE_PRODUCT)}
           icon={<RiAddLine />}
         >
           Add Product

@@ -10,7 +10,7 @@
 .sign-in__container {
   width: 100%;
   max-width: 400px;
-  background-color: white;
+  background-color: var(--bg-primary);
   padding: var(--spacing-8);
   border-radius: 8px;
   box-shadow:
@@ -51,20 +51,6 @@
   font-size: 14px;
   font-weight: 500;
   color: var(--gray-700);
-}
-
-.form-group input {
-  padding: var(--spacing-3);
-  border: 1px solid var(--gray-300);
-  border-radius: 6px;
-  font-size: 14px;
-  transition: border-color 0.2s;
-}
-
-.form-group input:focus {
-  outline: none;
-  border-color: var(--primary-500);
-  box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.1);
 }
 
 .sign-in__button {

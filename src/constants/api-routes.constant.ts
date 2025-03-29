@@ -7,6 +7,8 @@ export const API_ROUTES = {
   },
   PRODUCT: {
     LIST: '/seller/products',
+    CREATE: '/seller/products',
+    UPLOAD_IMAGE: (id: number) => `/seller/products/${id}/images`,
   },
   CATEGORY: {
     LIST: '/seller/categories',

@@ -18,6 +18,7 @@ import Dashboard from '@src/pages/dashboard/Dashboard';
 // Error pages
 import NotFound from '@src/pages/error/NotFound';
 import Product from '@src/pages/products/Product';
+import CreateProduct from '@src/pages/products/create-product/CreateProduct';
 
 export const router = createBrowserRouter([
   {
@@ -53,6 +54,10 @@ export const router = createBrowserRouter([
       {
         path: ROUTES.DASHBOARD.PRODUCTS,
         element: <Product />,
+      },
+      {
+        path: ROUTES.DASHBOARD.CREATE_PRODUCT,
+        element: <CreateProduct />,
       },
     ],
   },

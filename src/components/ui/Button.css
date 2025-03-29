@@ -56,7 +56,6 @@
 }
 
 .button--ghost:hover:not(:disabled) {
-  background-color: var(--bg-secondary);
   color: var(--button-primary-hover);
 }
 
