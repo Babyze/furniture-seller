@@ -3,6 +3,7 @@ import './Input.css';
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   error?: string;
   label?: string;
+  className?: string;
   children?: React.ReactNode;
 }
 

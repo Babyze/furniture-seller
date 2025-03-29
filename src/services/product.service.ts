@@ -1,5 +1,5 @@
 import { API_ROUTES } from '@src/constants/api-routes.constant';
-import { ProductListResponse } from '@src/models/product.model';
+import { CreateProduct, Product, ProductListResponse } from '@src/models/product.model';
 import { api } from './axios';
 
 class ProductService {
@@ -20,7 +20,22 @@ class ProductService {
     filters?: Record<string, unknown>,
   ): Promise<ProductListResponse> {
     return api.get<ProductListResponse>(API_ROUTES.PRODUCT.LIST, {
-      params: { page, size: limit, ...filters },
+      params: { page, limit, ...filters },
+    });
+  }
+
+  async createProduct(product: CreateProduct): Promise<Product> {
+    return api.post<Product>(API_ROUTES.PRODUCT.CREATE, product);
+  }
+
+  async uploadProductImage(productId: number, image: File): Promise<void> {
+    const formData = new FormData();
+    formData.append('image', image);
+
+    await api.put(API_ROUTES.PRODUCT.UPLOAD_IMAGE(productId), formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
     });
   }
 }

@@ -1,7 +1,7 @@
 import { authService } from '@src/services/auth.service';
 import React, { useEffect, useState } from 'react';
 
-import { Loading } from '@src/components/layouts/Loading';
+import { Loading } from '@src/components/ui/Loading';
 import { AuthContext } from '@src/contexts/AuthContext.context';
 import { LoginRequest, User } from '@src/models/auth.model';
 

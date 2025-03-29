@@ -58,7 +58,7 @@ const Table = <T extends Record<string, any>>({
   const [showFilters, setShowFilters] = useState(false);
   const [filterValues, setFilterValues] = useState<Record<string, unknown>>({});
   const [currentPage, setCurrentPage] = useState(1);
-  const [pageSize, setPageSize] = useState(10);
+  const [pageSize, setPageSize] = useState(pagination?.itemPerPage ?? 20);
 
   const handleFilterChange = (key: string, value: unknown) => {
     const newValues = { ...filterValues, [key]: value };
