@@ -21,7 +21,7 @@ class ProductService {
     filters?: Record<string, unknown>,
   ): Promise<ProductListResponse> {
     return api.get<ProductListResponse>(API_ROUTES.PRODUCT.LIST, {
-      params: { page, size: limit, ...filters },
+      params: { page, limit, ...filters },
     });
   }
 
