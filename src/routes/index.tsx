@@ -20,7 +20,7 @@ import NotFound from '@src/pages/error/NotFound';
 import Product from '@src/pages/products/Product';
 import CreateProduct from '@src/pages/products/create-product/CreateProduct';
 import UpdateProduct from '@src/pages/products/update-product/UpdateProduct';
-
+import AccountSetting from '@src/pages/settings/AccountSetting';
 export const router = createBrowserRouter([
   {
     path: '/',
@@ -63,6 +63,10 @@ export const router = createBrowserRouter([
       {
         path: ROUTES.DASHBOARD.UPDATE_PRODUCT,
         element: <UpdateProduct />,
+      },
+      {
+        path: ROUTES.DASHBOARD.SETTINGS,
+        element: <AccountSetting />,
       },
     ],
   },
