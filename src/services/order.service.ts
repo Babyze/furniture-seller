@@ -1,5 +1,5 @@
 import { API_ROUTES } from '@src/constants/api-routes.constant';
-import { GetOrdersQuery, Order } from '@src/models/order.model';
+import { GetOrdersQuery, Order, UpdateOrderBodyDto } from '@src/models/order.model';
 import { Pagination } from '@src/models/pagination.model';
 import { api } from './axios';
 
@@ -19,6 +19,10 @@ class OrderService {
     return api.get<Pagination<Order>>(API_ROUTES.ORDER.LIST, {
       params: query,
     });
+  }
+
+  async updateOrder(id: number, body: UpdateOrderBodyDto): Promise<void> {
+    return api.put<void>(API_ROUTES.ORDER.UPDATE(id), body);
   }
 }
 

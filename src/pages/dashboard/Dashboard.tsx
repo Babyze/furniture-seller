@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 
 import Table, { Column, PaginationConfig } from '@src/components/ui/Table';
 import { Order } from '@src/models/order.model';
@@ -24,39 +24,41 @@ const Dashboard = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(20);
 
-  useEffect(() => {
-    const fetchOrders = async () => {
-      try {
-        setIsLoading(true);
-        const data = await orderService.getOrders({ page: currentPage, limit: pageSize });
-        setOrders(data.items);
-        setPaginate({
-          currentPage: data.meta.currentPage,
-          itemPerPage: data.meta.itemsPerPage,
-          totalItems: data.meta.totalItems,
-          totalPages: data.meta.totalPages,
-        });
-      } catch (error) {
-        console.error('Error fetching orders:', error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchOrders();
+  const fetchOrders = useCallback(async () => {
+    try {
+      setIsLoading(true);
+      const data = await orderService.getOrders({ page: currentPage, limit: pageSize });
+      setOrders(data.items);
+      setPaginate({
+        currentPage: data.meta.currentPage,
+        itemPerPage: data.meta.itemsPerPage,
+        totalItems: data.meta.totalItems,
+        totalPages: data.meta.totalPages,
+      });
+    } catch (error) {
+      console.error('Error fetching orders:', error);
+    } finally {
+      setIsLoading(false);
+    }
   }, [currentPage, pageSize]);
+
+  useEffect(() => {
+    fetchOrders();
+  }, [fetchOrders]);
 
   const handlePageChange = (page: number, size: number) => {
     setCurrentPage(page);
     setPageSize(size);
   };
 
-  const handleConfirm = (order: Order) => {
-    alert(order.id);
+  const handleConfirm = async (order: Order) => {
+    await orderService.updateOrder(order.id, { status: ORDER_STATUS.CONFIRMED });
+    fetchOrders();
   };
 
-  const handleCancel = (order: Order) => {
-    alert(order.id);
+  const handleCancel = async (order: Order) => {
+    await orderService.updateOrder(order.id, { status: ORDER_STATUS.CANCELLED });
+    fetchOrders();
   };
 
   const columns: Column<Order>[] = [

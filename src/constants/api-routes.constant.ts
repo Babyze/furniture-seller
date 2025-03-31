@@ -23,5 +23,6 @@ export const API_ROUTES = {
   },
   ORDER: {
     LIST: '/seller/orders',
+    UPDATE: (id: number) => `/seller/orders/${id}`,
   },
 };

@@ -1,3 +1,4 @@
+import { ORDER_STATUS } from '@src/constants/order.constant';
 import { PaginationRequestQuery } from './pagination.model';
 
 export interface OrderForm {
@@ -19,7 +20,7 @@ export interface Order {
   id: number;
   customerId: number;
   totalPrice: string;
-  status: 'shipped' | 'confirmed';
+  status: ORDER_STATUS;
   createdDate: string;
   updatedDate: string;
   address: string;
@@ -27,3 +28,7 @@ export interface Order {
   fullName: string;
 }
 export type GetOrdersQuery = PaginationRequestQuery;
+
+export interface UpdateOrderBodyDto {
+  status: ORDER_STATUS;
+}
