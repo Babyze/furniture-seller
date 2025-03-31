@@ -19,7 +19,7 @@ import Dashboard from '@src/pages/dashboard/Dashboard';
 import NotFound from '@src/pages/error/NotFound';
 import Product from '@src/pages/products/Product';
 import CreateProduct from '@src/pages/products/create-product/CreateProduct';
-import UpdateProduct from '@src/pages/products/update-product/UpdatePRoduct';
+import UpdateProduct from '@src/pages/products/update-product/UpdateProduct';
 
 export const router = createBrowserRouter([
   {

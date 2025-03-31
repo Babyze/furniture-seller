@@ -1,0 +1,37 @@
+.product-page__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.order-status {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.order-status--pending {
+  background-color: #dbeafe;
+  color: #1e40af;
+}
+
+.order-status--cancelled {
+  background-color: var(--error-500);
+  color: var(--white);
+}
+
+.order-status--confirmed {
+  background-color: var(--success-500);
+  color: var(--white);
+}
+
+.order-action-button-confirm {
+  color: var(--success-500);
+}
+
+.order-action-button-cancel {
+  color: var(--error-500);
+}

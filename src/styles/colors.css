@@ -37,9 +37,12 @@
 
   /* Status Colors */
   --success-500: #22c55e;
+  --success-600: #16a34a;
   --warning-500: #f59e0b;
   --error-500: #ef4444;
+  --error-600: #dc2626;
   --info-500: #3b82f6;
+  --white: #ffffff;
 
   /* Text Colors */
   --text-primary: var(--gray-900);
