@@ -21,4 +21,7 @@ export const API_ROUTES = {
   CATEGORY_AREA: {
     LIST: '/seller/category-areas',
   },
+  ORDER: {
+    LIST: '/seller/orders',
+  },
 };

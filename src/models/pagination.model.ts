@@ -8,3 +8,8 @@ export interface Pagination<T> {
     currentPage: number;
   };
 }
+
+export interface PaginationRequestQuery {
+  page?: number;
+  limit?: number;
+}
