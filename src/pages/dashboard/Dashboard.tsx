@@ -16,7 +16,7 @@ const Dashboard = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [paginate, setPaginate] = useState<PaginationConfig>({
     currentPage: 1,
-    itemPerPage: 10,
+    itemPerPage: 20,
     totalItems: 0,
     totalPages: 0,
   });
